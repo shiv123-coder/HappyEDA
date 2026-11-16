@@ -1,9 +1,7 @@
 # World Happiness Report: Exploratory Data Analysis & Insights
 
-**Pluto Academy AI & Machine Learning Internship — Project 01**  
 - **Author:** Shivshankar Dhareppa Mali  
-- **Offer Letter Ref:** `PA-OL-AIML-2026-0934`  
-- **Dataset Source:** [World Happiness Report (Kaggle / UN SDSN)](https://www.kaggle.com/datasets/unsdsn/world-happiness)  
+- **Dataset:** [World Happiness Report (Kaggle / UN SDSN)](https://www.kaggle.com/datasets/unsdsn/world-happiness)  
 - **Interactive Notebook:** [Open in Google Colab](https://colab.research.google.com/github/shiv123-coder/HappyEDA/blob/main/World_Happiness_EDA.ipynb)
 
 ---
