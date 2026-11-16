@@ -1,88 +1,88 @@
-# 🌍 World Happiness Report — Exploratory Data Analysis & Insights
+# World Happiness Report: Exploratory Data Analysis & Insights
 
-[![Python](https://img.shields.io/badge/Python-3.12-3776AB.svg?style=flat&logo=python&logoColor=white)](https://python.org)
-[![Pandas](https://img.shields.io/badge/Pandas-2.0+-150458.svg?style=flat&logo=pandas&logoColor=white)](https://pandas.pydata.org)
-[![Seaborn](https://img.shields.io/badge/Seaborn-Visualizations-4c8cb5.svg?style=flat)](https://seaborn.pydata.org)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/shiv123-coder/HappyEDA/blob/main/World_Happiness_EDA.ipynb)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-**Pluto Academy AI & Machine Learning Internship Program — Project 01**  
-**Author:** Shivshankar Dhareppa Mali  
-**Offer Letter Ref:** `PA-OL-AIML-2026-0934`  
-**Dataset Source:** [Kaggle World Happiness Report (UNSDSN)](https://www.kaggle.com/datasets/unsdsn/world-happiness)
+**Pluto Academy AI & Machine Learning Internship — Project 01**  
+- **Author:** Shivshankar Dhareppa Mali  
+- **Offer Letter Ref:** `PA-OL-AIML-2026-0934`  
+- **Dataset Source:** [World Happiness Report (Kaggle / UN SDSN)](https://www.kaggle.com/datasets/unsdsn/world-happiness)  
+- **Interactive Notebook:** [Open in Google Colab](https://colab.research.google.com/github/shiv123-coder/HappyEDA/blob/main/World_Happiness_EDA.ipynb)
 
 ---
 
-## 📖 Project Overview
-This project delivers a comprehensive Exploratory Data Analysis (EDA) on the global **World Happiness Report** (2015–2019), investigating the socio-economic and institutional drivers of human well-being across over 150 countries.
+## Project Overview
 
-Through rigorous data cleaning, schema harmonization, five-question deep-dive analysis, and publication-grade visualizations, this project answers fundamental questions regarding what truly drives societal happiness, identifies regional disparities, and uncovers nations that achieve outsized well-being relative to their economic wealth.
+This project presents an exploratory data analysis of the World Happiness Report across the multi-year period from 2015 to 2019. The analysis investigates how GDP per capita, social support, life expectancy, personal freedom, generosity, and trust in institutions relate to national happiness scores across more than 150 countries.
+
+The notebook is structured with short, sequential cells that perform data loading, schema cleaning, five analytical questions, seven data visualizations, and strategic policy recommendations.
 
 ---
 
-## 🎯 What We Built (Rubric Alignment)
+## Analysis Summary & Rubric Alignment
 
-### 1. Step 1 — Load & Inspect Data
-- Loaded 5 annual survey releases (2015–2019) containing 155–158 countries per year.
-- Validated column types, dimensions, missing value distributions, and duplicate records (0 duplicate records found).
-- **5-Line Dataset Summary**:
-  1. *Core Subject*: National happiness and subjective well-being evaluated globally on a Cantril ladder scale (0 to 10).
-  2. *Key Dimensions*: Quantifies contributions from GDP per capita, social support, healthy life expectancy, freedom to make choices, generosity, and trust in institutions (lack of corruption).
-  3. *Coverage*: 156 surveyed countries in 2019 and over 780 country-year observations longitudinally from 2015 to 2019.
-  4. *Data Health*: High data integrity with zero duplicates and only a single missing data point across the multi-year corpus (2018 UAE corruption).
-  5. *Challenge*: Significant schema variations across years requiring systematic column harmonization and geopolitical region mapping.
+### 1. Step 1: Load and Inspect Data
+- Loaded 5 yearly datasets (2015–2019) containing 155 to 158 surveyed nations per year.
+- Validated dimensions, schema differences, missing values, and verified zero duplicate country records per release.
+- **Dataset inspection summary:**
+  1. *Core Subject*: National happiness evaluated on a 0 to 10 Cantril ladder scale from the Gallup World Poll.
+  2. *Key Dimensions*: Quantifies contributions from GDP, social support, life expectancy, freedom, generosity, and corruption perception.
+  3. *Coverage*: 156 countries in 2019 and over 780 country-year observations from 2015 to 2019.
+  4. *Data Health*: High overall integrity with zero duplicates and only one missing value in 2018 (UAE corruption).
+  5. *Challenge*: Column names and regional groupings differ across release years, requiring schema normalization and a unified region lookup.
 
-### 2. Step 2 — Data Cleaning Decisions & Justifications
-- **Column Harmonization**: Standardized inconsistent column titles (e.g. `Family` vs `Social support`, `Economy (GDP per Capita)` vs `GDP per capita`) into a clean schema: `country`, `region`, `rank`, `score`, `gdp`, `social`, `health`, `freedom`, `generosity`, `corruption`, `year`.
-- **Region Imputation**: Reconstructed missing regional metadata for 2018 and 2019 using a historical lookup mapping from 2015–2016 combined with alias normalization for political entity changes (e.g., Hong Kong, Taiwan, North Macedonia, Gambia).
-- **Missing Value Handling**: Imputed the single missing corruption value (United Arab Emirates in 2018) using the nation's multi-year mean ($0.288$) rather than dropping the country record.
+### 2. Step 2: Data Cleaning Decisions
+- **Schema Normalization**: Standardized varying annual column names (such as `Family` vs `Social support`, `Economy (GDP per Capita)` vs `GDP per capita`) into a consistent schema: `country`, `region`, `rank`, `score`, `gdp`, `social`, `health`, `freedom`, `generosity`, `corruption`, `year`.
+- **Region Harmonization**: Reconstructed missing regions for 2018 and 2019 using a lookup mapping derived from 2015–2016 records, with alias matching for entity changes (such as Taiwan, Hong Kong, North Macedonia, and Gambia).
+- **Missing Value Handling**: Imputed the single missing corruption score for UAE in 2018 using the country's average across surrounding survey years (0.288) rather than discarding the observation.
 - **Dimensionality Pruning**: Removed year-specific statistical bounds (`Standard Error`, `Whisker.high`, `Whisker.low`, `Dystopia Residual`) to ensure uniform feature vectors across all five years.
 
-### 3. Step 3 — Exploratory Data Analysis (5 Key Questions)
-- **Q1: Top 10 vs. Bottom 5**: Finland, Denmark, Norway, and Iceland dominate the top spots (scores $>7.49$), while South Sudan, Central African Republic, and Afghanistan sit at the bottom ($<3.25$). Top nations enjoy $3.5\times$ higher social support and $2.8\times$ higher life expectancy than bottom nations.
-- **Q2: Strongest Correlations**: GDP per Capita ($r = 0.794$) and Social Support ($r = 0.777$) show the strongest positive correlation with happiness, followed by Healthy Life Expectancy ($r = 0.780$) and Freedom ($r = 0.567$). Generosity displays negligible correlation ($r = 0.076$).
-- **Q3: Regional Disparities**: Western Europe (Mean: $6.898$) and North America (Mean: $7.085$) lead all regions. Latin America exhibits the widest internal range ($\text{spread} = 2.975$ points), ranging from Costa Rica ($7.167$) to Venezuela ($4.707$).
-- **Q4: 5-Year Trajectory (2015–2019)**: Countries with largest improvements: Benin ($+1.54$ points), Ivory Coast ($+1.86$ points), and Honduras ($+0.98$ points). Steepest collapse: Venezuela ($-2.10$ points) due to severe socio-economic crises.
-- **Q5: Punching Above Wealth**: Costa Rica (Happiness Rank 12 vs GDP Rank 55, $+43$ spots), Mexico ($+37$), and Guatemala ($+47$) achieve happiness levels far exceeding their income rank through exceptional community ties and health. Conversely, Botswana (Happiness Rank 148 vs GDP Rank 75, $-73$ spots) dramatically underperforms its economic output.
+### 3. Step 3: Exploratory Analysis (5 Core Questions)
+- **Question 1 (Top 10 vs Bottom 5)**: Nordic countries (Finland, Denmark, Norway, Iceland) lead the rankings with scores above 7.49. Bottom countries (South Sudan, Central African Republic, Afghanistan) average below 3.25. The top 10 average 3.5x higher social support and 2.8x higher life expectancy than the bottom 5.
+- **Question 2 (Key Drivers)**: GDP per Capita ($r = 0.794$) and Social Support ($r = 0.777$) show the strongest positive correlation with happiness, followed by Healthy Life Expectancy ($r = 0.780$) and Freedom ($r = 0.567$). Generosity displays negligible linear correlation ($r = 0.076$).
+- **Question 3 (Regional Spread)**: Western Europe (mean: 6.898) and North America (mean: 7.085) maintain the highest regional averages. Latin America exhibits the widest internal disparity (spread = 2.975 points), ranging from Costa Rica (7.167) to Venezuela (4.707).
+- **Question 4 (5-Year Shifts)**: Countries with largest improvements from 2015 to 2019 include Benin (+1.54) and Ivory Coast (+1.86). Venezuela experienced the steepest decline (-2.10) over the period.
+- **Question 5 (Economic Disparity)**: Costa Rica (Happiness Rank 12 vs GDP Rank 55, +43 spots), Mexico (+37 spots), and Guatemala (+47 spots) achieve happiness levels well above their economic rank. In contrast, mineral-wealthy nations like Botswana (Rank 148 in happiness vs Rank 75 in GDP) exhibit large negative rank gaps.
 
 ---
 
-## 📊 Visualizations Gallery (7 Charts)
+## Visualizations
 
-All charts are generated using Seaborn and Matplotlib with consistent typography and color palettes.
+The notebook generates seven chart types using restrained, publication-grade styling:
 
-| Chart Type | Description | Preview |
+| Figure | Chart Type | Subject |
 | :--- | :--- | :--- |
-| **01. Bar Chart** | Top 10 Happiest Countries in 2019 with exact score callouts | ![Top 10 Countries](visualizations/01_top_10_countries_bar.png) |
-| **02. Line Chart** | 5-Year Regional Happiness Score Trends (2015–2019) | ![Regional Trends](visualizations/02_regional_trends_line.png) |
-| **03. Histogram + KDE** | Global Distribution of Happiness Scores with Mean & Median markers | ![Score Distribution](visualizations/03_score_distribution_histogram.png) |
-| **04. Scatter Plot** | GDP per Capita vs. Happiness Score with key country annotations | ![GDP vs Happiness](visualizations/04_gdp_vs_happiness_scatter.png) |
-| **05. Donut Chart** | Regional representation of surveyed nations in the 2019 sample | ![Regional Breakdown](visualizations/05_regional_breakdown_pie.png) |
-| **06. Heatmap** | Pearson Correlation Matrix across all contributory factors | ![Correlation Heatmap](visualizations/06_correlation_heatmap.png) |
-| **07. Box Plot (Bonus)** | Regional Distribution and Variance in Happiness Scores | ![Regional Boxplot](visualizations/07_regional_boxplot.png) |
+| **Chart 1** | Bar Chart | Top 10 Happiest Countries in 2019 with score callouts |
+| **Chart 2** | Line Chart | 5-Year Regional Happiness Score Trends (2015–2019) |
+| **Chart 3** | Histogram | Global Distribution of Happiness Scores (Mean & Median) |
+| **Chart 4** | Scatter Plot | GDP per Capita vs. Happiness Score with key country annotations |
+| **Chart 5** | Donut Chart | Regional representation of surveyed nations in the 2019 sample |
+| **Chart 6** | Heatmap | Pearson correlation matrix across explanatory dimensions |
+| **Chart 7** | Box Plot | Regional distribution and variance in happiness scores |
 
 ---
 
-## 📑 Step 5 — Insights Report & Recommendations
+## Step 5: Insights & Recommendations
 
-### 5 Data-Backed Insights:
-1. **Economic Foundation is Essential but Insufficient (Chart 4 & 6)**:
-   While GDP per capita is strongly correlated with happiness ($r = 0.794$), wealth alone does not guarantee high well-being. Nations like Singapore and Qatar have top-tier GDP per capita (~$1.68$) yet rank 34th and 29th in happiness. In contrast, Costa Rica achieves 12th place globally despite having roughly two-thirds the GDP per capita of wealthy peers ($1.03$ vs $1.68$), driven by robust social safety nets and healthcare access.
-2. **Social Capital and Mutual Support Are Primary Multipliers (Chart 6 & Table Q1)**:
-   Social support has the second-highest correlation ($r = 0.777$) with happiness. Between the top 10 happiest nations and the bottom 5, the social support score drops by nearly $3.5\times$ (from $1.53$ to $0.44$). Organizations and policymakers should invest aggressively in community resilience, psychological safety, and social welfare infrastructure.
-3. **Geographic Inequality Is Extreme but Stable (Chart 2 & 5)**:
-   Western Europe and North America consistently lead global happiness scores with regional averages above $6.80$, whereas Sub-Saharan Africa lags at $4.31$ (a $2.5$-point gap). Over the 5-year longitudinal analysis (2015–2019), regional trajectories remained remarkably stable, indicating that structural reforms require decades of sustained capital and institutional reinforcement.
-4. **The Economic Efficiency Gap — Punching Above Wealth (Table Q5 & Chart 4)**:
-   Latin American countries consistently rank much higher in happiness than their economic rank would predict (e.g., Costa Rica $+43$ spots, Mexico $+37$ spots, Guatemala $+47$ spots). Conversely, certain African countries such as Botswana (Rank 148 in happiness vs Rank 75 in GDP, gap of $-73$) suffer severely from inequality and institutional challenges despite mineral wealth.
-5. **Generosity Does Not Drive National Happiness (Chart 6 & Table Q2)**:
-   Generosity showed an almost negligible correlation with overall happiness ($r = 0.076$). This counter-intuitive finding demonstrates that while individual charitable acts provide personal fulfillment, broad national happiness is rooted primarily in systemic institutional health, economic security, and public healthcare rather than voluntary philanthropy.
+1. **Economic output is strongly correlated with happiness, but has diminishing returns (Chart 4, Chart 6)**:
+   GDP per capita exhibits the highest correlation with happiness ($r = 0.794$). However, above a certain wealth threshold, extra GDP does not translate linearly into higher happiness. For instance, Singapore and Qatar report among the highest GDP per capita scores in the world (~1.68), yet rank 34th and 29th respectively. Meanwhile, Costa Rica achieves rank 12 globally with a GDP score of 1.03, compensating through social ties and healthcare access.
 
-### 😲 Finding That Surprised Me the Most (3–5 Lines):
-> *"The most surprising discovery was the complete divergence between wealth and happiness in the **Rank Disparity Analysis (Question 5 & Chart 4)**. Nations like Botswana and Qatar produce extraordinarily high economic output per capita, yet score lower in life satisfaction than Latin American nations with a fraction of their wealth like Costa Rica and Guatemala. This conclusively disproves the premise that maximizing GDP alone optimizes human well-being, highlighting that social cohesion, freedom, and healthcare access are the true linchpins of life satisfaction."*
+2. **Social support is the strongest non-monetary pillar of well-being (Chart 6, Table Q1)**:
+   Social support has the second highest correlation with national score ($r = 0.777$). Between the top 10 and bottom 5 countries, the average social support score drops by roughly 3.5x (from 1.53 down to 0.44). For policy decisions, investment in social safety nets, public parks, community care, and family support infrastructure yields direct measurable returns in population well-being.
+
+3. **Regional disparities remain persistent over time (Chart 2, Chart 5)**:
+   Western Europe and North America average around 6.9 to 7.1 in happiness, whereas Sub-Saharan Africa averages 4.31. Over the five observed years (2015 to 2019), regional trajectories remained steady with little churn across geographic tiers, underscoring that structural improvements require long-term institutional stability.
+
+4. **Latin American nations punch consistently above their economic wealth (Table Q5, Chart 4)**:
+   In the rank disparity analysis, Costa Rica (+43 spots), Mexico (+37 spots), and Guatemala (+47 spots) achieve happiness scores far higher than their GDP per capita rank would predict. By contrast, mineral-rich nations like Botswana (Rank 148 in happiness vs Rank 75 in GDP) exhibit large negative rank gaps, likely due to internal inequality and health challenges.
+
+5. **Generosity shows negligible correlation with national happiness scores (Chart 6, Table Q2)**:
+   Generosity had an $r = 0.076$ correlation with happiness. While individual charitable acts are positive, national life satisfaction is driven primarily by baseline economic security, public healthcare, personal freedom, and institutional trust rather than discretionary donations.
+
+### Finding That Surprised Me the Most:
+The rank disparity analysis was the most surprising takeaway. Comparing GDP rank against happiness rank demonstrates that wealth alone is an incomplete proxy for national well-being. Middle-income nations with strong familial structures and accessible healthcare routinely outscore far wealthier peers who face higher social isolation or systemic inequality.
 
 ---
 
-## 📂 Project Structure
+## Repository Structure
+
 ```text
 HappyEDA/
 ├── data/
@@ -99,34 +99,24 @@ HappyEDA/
 │   ├── 05_regional_breakdown_pie.png
 │   ├── 06_correlation_heatmap.png
 │   └── 07_regional_boxplot.png
-├── World_Happiness_EDA.ipynb    # Modular, bite-sized Jupyter Notebook with all outputs
+├── World_Happiness_EDA.ipynb    # Clean Jupyter Notebook with modular short cells
 └── README.md                    # Project documentation & insights report
 ```
 
 ---
 
-## 🚀 How to Run Locally
+## How to Run
 
-1. **Clone the repository:**
+1. Clone this repository:
    ```bash
    git clone https://github.com/shiv123-coder/HappyEDA.git
    cd HappyEDA
    ```
-
-2. **Set up Python environment & dependencies:**
+2. Install dependencies:
    ```bash
-   pip install pandas numpy matplotlib seaborn jupyter nbclient
+   pip install pandas numpy matplotlib seaborn jupyter
    ```
-
-3. **Launch the Jupyter Notebook:**
+3. Open the notebook:
    ```bash
    jupyter notebook World_Happiness_EDA.ipynb
    ```
-
----
-
-## 🎓 Internship & Submission Information
-- **Program:** Pluto Academy AI & Machine Learning Internship (1-Month Remote)
-- **Intern:** Shivshankar Dhareppa Mali (`PA-OL-AIML-2026-0934`)
-- **Email:** `shivashankrmali7@gmail.com`
-- **Evaluation Criteria:** Data Cleaning (20) + EDA Depth (25) + Visualizations (25) + Insights Report (20) + Code & Repository Quality (10) = 100 Marks.
